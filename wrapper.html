@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Wrapper</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: none;
+      transform-origin: top left;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="container">
+  <iframe id="gameFrame" src="./index.html"></iframe>
+</div>
+
+<script>
+function resizeGame() {
+  const iframe = document.getElementById("gameFrame");
+
+  // Your game's original resolution
+  const gameWidth = 1024;
+  const gameHeight = 576;
+
+  const containerWidth = window.innerWidth;
+  const containerHeight = window.innerHeight;
+
+  // Maintain aspect ratio
+  const scale = Math.min(
+    containerWidth / gameWidth,
+    containerHeight / gameHeight
+  );
+
+  // Set iframe to original size
+  iframe.style.width = gameWidth + "px";
+  iframe.style.height = gameHeight + "px";
+
+  // Scale the iframe
+  iframe.style.transform = `scale(${scale})`;
+
+  // Center it
+  iframe.style.left = ((containerWidth - gameWidth * scale) / 2) + "px";
+  iframe.style.top = ((containerHeight - gameHeight * scale) / 2) + "px";
+}
+
+window.addEventListener("load", resizeGame);
+window.addEventListener("resize", resizeGame);
+</script>
+
+</body>
+</html>
