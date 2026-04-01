@@ -39,35 +39,33 @@
 <script>
 function resizeGame() {
   const iframe = document.getElementById("gameFrame");
+  const container = document.getElementById("container");
 
-  // Your game's original resolution
-  const gameWidth = 1399;
-  const gameHeight = 696;
+  // Game's original resolution
+  const gameWidth = 1366;
+  const gameHeight = 768;
 
-  const containerWidth = window.innerWidth;
-  const containerHeight = window.innerHeight;
+  // ✅ Use container size instead of window
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
 
-  // Maintain aspect ratio
+  // Calculate scale
   const scale = Math.min(
     containerWidth / gameWidth,
     containerHeight / gameHeight
   );
 
-  // Set iframe to original size
+  // Set iframe base size
   iframe.style.width = gameWidth + "px";
   iframe.style.height = gameHeight + "px";
 
-  // Scale the iframe
+  // Scale it
   iframe.style.transform = `scale(${scale})`;
 
   // Center it
   iframe.style.left = ((containerWidth - gameWidth * scale) / 2) + "px";
   iframe.style.top = ((containerHeight - gameHeight * scale) / 2) + "px";
 }
-
-window.addEventListener("load", resizeGame);
-window.addEventListener("resize", resizeGame);
-</script>
 
 </body>
 </html>
